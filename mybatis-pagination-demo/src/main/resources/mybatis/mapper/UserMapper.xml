@@ -1,0 +1,60 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatispagination.demo.dao.UserDao">
+
+    <select id="queryUsers" parameterType="java.lang.Integer"  resultType="org.mybatispagination.demo.entity.User">
+        select
+               `user`.id,
+               `user`.`name`,
+               `user`.status
+        from `user`
+        where status = #{status, jdbcType=INTEGER}
+    </select>
+
+    <!--
+        1.when one to many query, set the "${pagination.limitTag}" which will be replace to string like "limit 1, 10"
+        2.no need for "parameterType"
+
+        1.在一对多查询的sql中，应对主表设置limit, "${pagination.limitTag}"是一个标志位，将会被替换成如"limit 1, 10"的语句
+        2.不需要写 parameterType
+    -->
+    <select id="queryUsersWithOrders" resultMap="resultMap">
+        select t.*,
+        user_order.id order_id,
+        user_order.name order_name,
+        user_order.user_id
+        from (
+            select
+                   `user`.id,
+                   `user`.`name`
+            from `user`
+            where status = #{status, jdbcType=INTEGER}
+            <if test="pagination != null">
+                ${pagination.limitTag}
+            </if>
+        ) t, user_order
+        where t.id = user_order.user_id
+    </select>
+
+    <insert id="save" parameterType="org.mybatispagination.demo.entity.User" keyProperty="user.id" useGeneratedKeys="true">
+        insert into `user` (`name`, status)
+        values (#{user.name,jdbcType=VARCHAR}, #{user.status, jdbcType=INTEGER})
+    </insert>
+
+    <update id="clear">
+        truncate `user`
+    </update>
+
+
+    <resultMap id="resultMap" type="org.mybatispagination.demo.entity.User">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <collection property="orders" ofType="org.mybatispagination.demo.entity.UserOrder">
+            <id property="id" column="order_id" jdbcType="INTEGER"/>
+            <result property="name" column="order_name" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        </collection>
+    </resultMap>
+</mapper>
