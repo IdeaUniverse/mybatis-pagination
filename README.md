@@ -7,7 +7,7 @@
 ### 基于 mybatis 拦截器实现
 ### 支持单表，一对一，一对多嵌套查询
 
-### example
+
 #### config
     @Configuration
     public class PaginationInterceptorConfig {
