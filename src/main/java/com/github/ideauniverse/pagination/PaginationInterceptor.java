@@ -1,4 +1,4 @@
-package org.mybatispagination;
+package com.github.ideauniverse.pagination;
 
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;

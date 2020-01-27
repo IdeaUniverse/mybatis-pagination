@@ -1,4 +1,4 @@
-package org.mybatispagination.demo.entity;
+package com.github.ideauniverse.pagination.demo.entity;
 
 public class UserOrder {
 

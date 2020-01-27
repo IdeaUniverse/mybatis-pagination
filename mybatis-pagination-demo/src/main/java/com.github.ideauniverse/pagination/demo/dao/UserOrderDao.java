@@ -1,7 +1,7 @@
-package org.mybatispagination.demo.dao;
+package com.github.ideauniverse.pagination.demo.dao;
 
 import org.apache.ibatis.annotations.Param;
-import org.mybatispagination.demo.entity.UserOrder;
+import com.github.ideauniverse.pagination.demo.entity.UserOrder;
 
 public interface UserOrderDao {
 

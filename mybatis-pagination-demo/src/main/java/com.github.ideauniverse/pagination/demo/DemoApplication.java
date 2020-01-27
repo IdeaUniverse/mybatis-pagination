@@ -1,4 +1,4 @@
-package org.mybatispagination.demo;
+package com.github.ideauniverse.pagination.demo;
 
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@MapperScan("org.mybatispagination.demo")
+@MapperScan("com.github.ideauniverse.pagination.demo")
 @SpringBootApplication
 public class DemoApplication {
 

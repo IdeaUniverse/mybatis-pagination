@@ -1,6 +1,6 @@
-package org.mybatispagination.demo.common;
+package com.github.ideauniverse.pagination.demo.common;
 
-import org.mybatispagination.PaginationInterceptor;
+import com.github.ideauniverse.pagination.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

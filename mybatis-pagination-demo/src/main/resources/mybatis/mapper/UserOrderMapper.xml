@@ -1,9 +1,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatispagination.demo.dao.UserOrderDao">
+<mapper namespace="com.github.ideauniverse.pagination.demo.dao.UserOrderDao">
 
-    <insert id="save" parameterType="org.mybatispagination.demo.entity.UserOrder" keyProperty="order.id" useGeneratedKeys="true">
+    <insert id="save" parameterType="com.github.ideauniverse.pagination.demo.entity.UserOrder" keyProperty="order.id" useGeneratedKeys="true">
         insert into user_order (`name`, user_id)
         values (#{order.name,jdbcType=VARCHAR}, #{order.userId, jdbcType=INTEGER})
     </insert>

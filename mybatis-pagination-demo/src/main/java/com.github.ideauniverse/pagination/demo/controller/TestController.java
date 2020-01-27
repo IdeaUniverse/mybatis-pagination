@@ -1,8 +1,8 @@
-package org.mybatispagination.demo.controller;
+package com.github.ideauniverse.pagination.demo.controller;
 
-import org.mybatispagination.Pagination;
-import org.mybatispagination.demo.dao.UserDao;
-import org.mybatispagination.demo.entity.User;
+import com.github.ideauniverse.pagination.Pagination;
+import com.github.ideauniverse.pagination.demo.dao.UserDao;
+import com.github.ideauniverse.pagination.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,9 +1,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatispagination.demo.dao.UserDao">
+<mapper namespace="com.github.ideauniverse.pagination.demo.dao.UserDao">
 
-    <select id="queryUsers" parameterType="java.lang.Integer"  resultType="org.mybatispagination.demo.entity.User">
+    <select id="queryUsers" parameterType="java.lang.Integer"  resultType="com.github.ideauniverse.pagination.demo.entity.User">
         select
                `user`.id,
                `user`.`name`,
@@ -37,7 +37,7 @@
         where t.id = user_order.user_id
     </select>
 
-    <insert id="save" parameterType="org.mybatispagination.demo.entity.User" keyProperty="user.id" useGeneratedKeys="true">
+    <insert id="save" parameterType="com.github.ideauniverse.pagination.demo.entity.User" keyProperty="user.id" useGeneratedKeys="true">
         insert into `user` (`name`, status)
         values (#{user.name,jdbcType=VARCHAR}, #{user.status, jdbcType=INTEGER})
     </insert>
@@ -47,11 +47,11 @@
     </update>
 
 
-    <resultMap id="resultMap" type="org.mybatispagination.demo.entity.User">
+    <resultMap id="resultMap" type="com.github.ideauniverse.pagination.demo.entity.User">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <collection property="orders" ofType="org.mybatispagination.demo.entity.UserOrder">
+        <collection property="orders" ofType="com.github.ideauniverse.pagination.demo.entity.UserOrder">
             <id property="id" column="order_id" jdbcType="INTEGER"/>
             <result property="name" column="order_name" jdbcType="VARCHAR"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>

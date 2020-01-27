@@ -1,9 +1,9 @@
-package org.mybatispagination.demo.common;
+package com.github.ideauniverse.pagination.demo.common;
 
-import org.mybatispagination.demo.entity.User;
-import org.mybatispagination.demo.dao.UserDao;
-import org.mybatispagination.demo.entity.UserOrder;
-import org.mybatispagination.demo.dao.UserOrderDao;
+import com.github.ideauniverse.pagination.demo.entity.User;
+import com.github.ideauniverse.pagination.demo.dao.UserDao;
+import com.github.ideauniverse.pagination.demo.entity.UserOrder;
+import com.github.ideauniverse.pagination.demo.dao.UserOrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

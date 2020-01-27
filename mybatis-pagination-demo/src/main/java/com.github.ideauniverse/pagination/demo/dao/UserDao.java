@@ -1,8 +1,8 @@
-package org.mybatispagination.demo.dao;
+package com.github.ideauniverse.pagination.demo.dao;
 
-import org.mybatispagination.Pagination;
+import com.github.ideauniverse.pagination.Pagination;
 import org.apache.ibatis.annotations.Param;
-import org.mybatispagination.demo.entity.User;
+import com.github.ideauniverse.pagination.demo.entity.User;
 
 import java.util.List;
 
