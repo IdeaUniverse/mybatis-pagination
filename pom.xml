@@ -5,10 +5,10 @@
 
     <groupId>com.github.IdeaUniverse</groupId>
     <artifactId>mybatis-pagination</artifactId>
-    <version>1.0.5-RELEASE</version>
+    <version>1.0.6-RELEASE</version>
     <name>mybatis-pagination</name>
     <description>Mybatis pagination plugin, supports one to one, one to many, nested query</description>
-    <url>https://github.com/alibaba/druid</url>
+    <url>https://github.com/IdeaUniverse/mybatis-pagination</url>
 
     <packaging>jar</packaging>
 
