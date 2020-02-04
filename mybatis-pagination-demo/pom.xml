@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>com.github.IdeaUniverse</groupId>
 			<artifactId>mybatis-pagination</artifactId>
-			<version>1.0.2-RELEASE</version>
+			<version>1.0.5-RELEASE</version>
 		</dependency>
 
 		<dependency>
