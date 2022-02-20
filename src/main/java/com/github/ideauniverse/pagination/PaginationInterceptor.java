@@ -1,6 +1,5 @@
 package com.github.ideauniverse.pagination;
 
-
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -26,34 +25,34 @@ public class PaginationInterceptor implements Interceptor {
         MetaObject metaObject = MetaObject.forObject(statementHandler, SystemMetaObject.DEFAULT_OBJECT_FACTORY, SystemMetaObject.DEFAULT_OBJECT_WRAPPER_FACTORY,new DefaultReflectorFactory());
         BoundSql boundSql = statementHandler.getBoundSql();
         Map<?,?> parameter = (Map<?,?>)boundSql.getParameterObject();
-        if(parameter != null && parameter.containsKey(Pagination.paramName)){
-            Pagination<?> pagination = (Pagination<?>) parameter.get(Pagination.paramName);
-            if(pagination != null){
-                // 原始的SQL语句
-                String sql = boundSql.getSql();
-                // 查询总条数的SQL语句
-                Connection connection = (Connection)invocation.getArgs()[0];
-                String keyColumn = pagination.getKeyColumn();
-                String countSql = "";
-                String paginationSql = "";
-                if(keyColumn == null){  // 单表或者一对一
-                    countSql = "select count(*) from (" + sql + ") t";
-                    paginationSql = sql + " limit " + pagination.getStart() + ", " + pagination.getSize();
-                }else {     // 一对多
-                    countSql = "select count(total) from (select count(*) total from (" + sql.replace(pagination.getLimitTag(), "") + ") t group by t." + keyColumn + ") t1";
-                    paginationSql = sql.replace(pagination.getLimitTag(), " limit " + pagination.getStart() + ", " + pagination.getSize());
-                }
-                PreparedStatement countStatement = connection.prepareStatement(countSql);
-                ParameterHandler parameterHandler = (ParameterHandler)metaObject.getValue("delegate.parameterHandler");
-                parameterHandler.setParameters(countStatement);
-                ResultSet rs = countStatement.executeQuery();
-                if(rs.next()) {
-                    pagination.setTotal(rs.getInt(1));
-                }
-                // 改造后带分页查询的SQL语句
-                metaObject.setValue("delegate.boundSql.sql", paginationSql);
-            }
+        if(parameter == null || !parameter.containsKey(Pagination.PARAM_NAME)){
+            return invocation.proceed();
         }
+        Pagination<?> pagination = (Pagination<?>) parameter.get(Pagination.PARAM_NAME);
+        // 原始的SQL语句
+        String sql = boundSql.getSql();
+        // 查询总条数的SQL语句
+        Connection connection = (Connection)invocation.getArgs()[0];
+        String keyColumn = pagination.getKeyColumn();
+        String countSql;
+        String paginationSql;
+        if(keyColumn == null){  // 单表或者一对一
+            countSql = "select count(*) from (" + sql + ") t";
+            paginationSql = sql + " limit " + pagination.getStart() + ", " + pagination.getSize();
+        }else {     // 一对多
+            countSql = "select count(total) from (select count(*) total from (" + sql.replace(Pagination.LIMIT_TAG, "") + ") t group by t." + keyColumn + ") t1";
+            paginationSql = sql.replace(Pagination.LIMIT_TAG, " limit " + pagination.getStart() + ", " + pagination.getSize());
+            pagination.setKeyColumn(null);
+        }
+        PreparedStatement countStatement = connection.prepareStatement(countSql);
+        ParameterHandler parameterHandler = (ParameterHandler)metaObject.getValue("delegate.parameterHandler");
+        parameterHandler.setParameters(countStatement);
+        ResultSet rs = countStatement.executeQuery();
+        if(rs.next()) {
+            pagination.setTotal(rs.getInt(1));
+        }
+        // 改造后带分页查询的SQL语句
+        metaObject.setValue("delegate.boundSql.sql", paginationSql);
         return invocation.proceed();
     }
 

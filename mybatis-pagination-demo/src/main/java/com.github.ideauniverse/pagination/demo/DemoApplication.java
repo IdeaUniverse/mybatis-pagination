@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@MapperScan("com.github.ideauniverse.pagination.demo")
+@MapperScan("com.github.ideauniverse.pagination.demo.dao")
 @SpringBootApplication
 public class DemoApplication {
 

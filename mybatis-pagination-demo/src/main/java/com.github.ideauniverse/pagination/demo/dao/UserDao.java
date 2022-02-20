@@ -12,9 +12,5 @@ public interface UserDao {
                           @Param("pagination") Pagination<User> pagination);
 
     List<User> queryUsersWithOrders(@Param("status") Integer status,
-                                    @Param("pagination") Pagination<User> pagination);
-
-    int save(@Param("user") User user);
-
-    int clear();
+                                    @Param(Pagination.PARAM_NAME) Pagination<User> pagination);
 }

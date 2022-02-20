@@ -8,6 +8,16 @@ import java.util.List;
 public class Pagination<T> {
 
     /**
+     * mybatis dao 传入的分页参数名
+     */
+    public static final String PARAM_NAME = "pagination";
+
+    /**
+     * sql 中分页占位符
+     */
+    public static final String LIMIT_TAG = "limitTag";
+
+    /**
      * 当前页
      */
     private int page = 1;
@@ -27,14 +37,15 @@ public class Pagination<T> {
      */
     private int start;
 
-    public static final String paramName = "pagination";
+    /**
+     * 依据分页的数据库字段，如果是单表查询可不设置
+     */
+    private transient String keyColumn;
 
     /**
      * 内容
      */
-    private List<T> content;
-
-    private String keyColumn;
+    private List<? extends T> content;
 
     public int getPage() {
         return page;
@@ -70,16 +81,12 @@ public class Pagination<T> {
         this.start = start;
     }
 
-    public List<T> getContent() {
+    public List<? extends T> getContent() {
         return content;
     }
 
-    public void setContent(List<T> contetent) {
-        this.content = contetent;
-    }
-
-    public String getLimitTag() {
-        return "limitTag";
+    public void setContent(List<? extends T> content) {
+        this.content = content;
     }
 
     public String getKeyColumn() {
@@ -89,5 +96,4 @@ public class Pagination<T> {
     public void setKeyColumn(String keyColumn){
         this.keyColumn = keyColumn;
     }
-
 }

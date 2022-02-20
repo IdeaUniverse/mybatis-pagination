@@ -19,7 +19,7 @@ public class TestController {
 
     /**
      * one to one, 一对一
-     * http://localhost:8080/mybatis-pagination/test/query-users?page=1
+     * http://localhost:8080/test/query-users?page=1
      */
     @GetMapping("/query-users")
     public Pagination<User> queryUsers(@RequestParam Integer page){
@@ -32,13 +32,14 @@ public class TestController {
 
     /**
      * one to many, 一对多
-     * http://localhost:8080/mybatis-pagination/test/query-users-with-orders?page=1
+     * http://localhost:8080/test/query-users-with-orders?page=1
      */
     @GetMapping("/query-users-with-orders")
     public Pagination<User> queryUsersWithOrders(@RequestParam Integer page){
         Pagination<User> pagination = new Pagination<>();
         pagination.setPage(page);
-        pagination.setKeyColumn("id");      // set key column for main table (here is the id column of user table), which is for results to group on
+        // set key column for main table (here is the id column of user table), which is for results to group on
+        pagination.setKeyColumn("id");
         List<User> users = userDao.queryUsersWithOrders(1, pagination);
         pagination.setContent(users);
         return pagination;

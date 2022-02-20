@@ -1,19 +1,24 @@
 server:
   port: 8080
-  servlet:
-    context-path: /${spring.application.name}
 spring:
-  profiles:
-    active: prod
   application:
     name: mybatis-pagination
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mybatis_pagination?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: xxxxx
-    password: xxxxx
+    url:  jdbc:h2:mem:mybatis_pagination;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: root
+    password: test
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
+    driver-class-name: org.h2.Driver
+    initialization-mode: always   # always, never
+    schema:
+      - classpath:sql/schema.sql
+    data:
+      - classpath:sql/data.sql
+    sql-script-encoding: UTF-8
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 mybatis:
     mapperLocations: classpath:/mybatis/mapper/**/*.xml
     configLocation: classpath:/mybatis/config/mybatis-config.xml

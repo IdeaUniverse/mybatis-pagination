@@ -31,21 +31,11 @@
             from `user`
             where status = #{status, jdbcType=INTEGER}
             <if test="pagination != null">
-                ${pagination.limitTag}
+                ${@com.github.ideauniverse.pagination.Pagination@LIMIT_TAG}
             </if>
         ) t, user_order
         where t.id = user_order.user_id
     </select>
-
-    <insert id="save" parameterType="com.github.ideauniverse.pagination.demo.entity.User" keyProperty="user.id" useGeneratedKeys="true">
-        insert into `user` (`name`, status)
-        values (#{user.name,jdbcType=VARCHAR}, #{user.status, jdbcType=INTEGER})
-    </insert>
-
-    <update id="clear">
-        truncate `user`
-    </update>
-
 
     <resultMap id="resultMap" type="com.github.ideauniverse.pagination.demo.entity.User">
         <id property="id" column="id" jdbcType="INTEGER"/>
