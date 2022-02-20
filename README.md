@@ -42,14 +42,18 @@
         pagination.setContent(users);
         return pagination;
     }
+
+    DAO:
+    List<User> queryUsers(@Param("status") Integer status,
+    @Param("pagination") Pagination<User> pagination);
     
 #### one to many
 ##### sql
     <!--       
-        1.when one to many query, set the "${pagination.limitTag}" which will be replace to string like "limit 1, 10"
+        1.when one to many query, set the "${${@com.github.ideauniverse.pagination.Pagination@LIMIT_TAG}}" which will be replace to a string like "limit 1, 10"
         2.no need for "parameterType"
         
-        1.在一对多查询的sql中，应对主表设置limit, "${pagination.limitTag}"是一个标志位，将会被替换成如"limit 1, 10"的语句
+        1.在一对多查询的sql中，应对主表设置limit, "${@com.github.ideauniverse.pagination.Pagination@LIMIT_TAG}"是一个标志位，将会被替换成如"limit 1, 10"的语句
         2.不需要写 parameterType
     -->
     <select id="queryUsersWithOrders" resultMap="resultMap">
@@ -64,7 +68,7 @@
             from `user`
             where status = #{status, jdbcType=INTEGER}
             <if test="pagination != null">
-                ${pagination.limitTag}
+                ${@com.github.ideauniverse.pagination.Pagination@LIMIT_TAG}
             </if>
         ) t, user_order
         where t.id = user_order.user_id
@@ -85,7 +89,11 @@
         return pagination;
     }
 
+    DAO:
+    List<User> queryUsersWithOrders(@Param("status") Integer status,
+                                    @Param(Pagination.PARAM_NAME) Pagination<User> pagination);
+
 ### please see mybatis-pagination-demo for code example
 ### 代码示例请见 mybatis-pagination-demo 
 
-### licences: MIT
+### licences: MIT(https://opensource.org/licenses/mit-license.php)
