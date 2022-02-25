@@ -29,6 +29,9 @@ public class PaginationInterceptor implements Interceptor {
             return invocation.proceed();
         }
         Pagination<?> pagination = (Pagination<?>) parameter.get(Pagination.PARAM_NAME);
+        if(pagination == null){
+            return invocation.proceed();
+        }
         // 原始的SQL语句
         String sql = boundSql.getSql();
         // 查询总条数的SQL语句
